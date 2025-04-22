@@ -1,73 +1,69 @@
 {
-  "id": "4d6fe5ed-c8e8-4782-ac11-97e27b7a72c5",
-  "name": "ApplyVersionToAssemblies",
-  "friendlyName": "Innofactor DevOps: Apply Build Version to assemblies",
-  "description": "This task will extract the four part version number from the generated build number or given file and update all AssemblyInfo.cs files in the solution with this version.",
-  "author": "Innofactor Sweden",
-  "helpMarkDown": "This task will extract the *four part version number* from the generated {build number} or {given file} and update all AssemblyInfo.cs files in the solution with this version.",
-  "category": "Build",
-  "visibility": [
-    "Build",
-    "Release"
-  ],
-  "demands": [],
-  "version": {
-    "Major": "9",
-    "Minor": "0",
-    "Patch": "2"
-  },
-  "minimumAgentVersion": "3.0.0",
-  "groups": [
-    {
-      "name": "advanced",
-      "displayName": "Advanced",
-      "isExpanded": false
+    "id": "4d6fe5ed-c8e8-4782-ac11-97e27b7a72c5",
+    "name": "ApplyVersionToAssemblies",
+    "friendlyName": "Apply Build Version to assemblies",
+    "description": "This task will extract the four part version number from the generated build number or given file and update all AssemblyInfo.cs files in the solution with this version.",
+    "author": "Innofactor Sweden",
+    "helpMarkDown": "This task will extract the *four part version number* from the generated {build number} or {given file} and update all AssemblyInfo.cs files in the solution with this version.",
+    "category": "Build",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "demands": [],
+    "version": "9.0.3",
+    "minimumAgentVersion": "3.0.0",
+    "groups": [
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "versionType",
+            "type": "radio",
+            "label": "Type",
+            "required": true,
+            "defaultValue": "build",
+            "options": {
+                "build": "Search for full version in generated build number",
+                "file": "Search for revision in build number and append it to pattern from file"
+            },
+            "helpMarkDown": "Select location where version pattern will be searched."
+        },
+        {
+            "name": "workingDirectory",
+            "type": "filePath",
+            "label": "Working Directory",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Working directory to look for projects on which version number needs to be set. _If this is null, it will take the default build directory path_"
+        },
+        {
+            "name": "versionFile",
+            "type": "filePath",
+            "label": "File",
+            "defaultValue": "",
+            "visibleRule": "versionType = file",
+            "required": false,
+            "helpMarkDown": "Text file with version information. Revision number will be appended to it."
+        },
+        {
+            "name": "versionMatch",
+            "type": "boolean",
+            "label": "Match CRM SDK major and minor versions",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Replace first two digits in resulting version with Microsoft Dynamics CRM SDK version found in `packages.config`",
+            "groupName": "advanced"
+        }
+    ],
+    "instanceNameFormat": "Apply Build Version to assemblies",
+    "execution": {
+        "PowerShell3": {
+            "target": "script.ps1"
+        }
     }
-  ],
-  "inputs": [
-    {
-      "name": "versionType",
-      "type": "radio",
-      "label": "Type",
-      "required": true,
-      "defaultValue": "build",
-      "options": {
-        "build": "Search for full version in generated build number",
-        "file": "Search for revision in build number and append it to pattern from file"
-      },
-      "helpMarkDown": "Select location where version pattern will be searched."
-    },
-    {
-      "name": "workingDirectory",
-      "type": "filePath",
-      "label": "Working Directory",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "Working directory to look for projects on which version number needs to be set. _If this is null, it will take the default build directory path_"
-    },
-    {
-      "name": "versionFile",
-      "type": "filePath",
-      "label": "File",
-      "defaultValue": "",
-      "visibleRule": "versionType = file",
-      "required": false,
-      "helpMarkDown": "Text file with version information. Revision number will be appended to it."
-    },
-    {
-      "name": "versionMatch",
-      "type": "boolean",
-      "label": "Match CRM SDK major and minor versions",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "Replace first two digits in resulting version with Microsoft Dynamics CRM SDK version found in `packages.config`",
-      "groupName": "advanced"
-    }
-  ],
-  "instanceNameFormat": "Apply Build Version to assemblies",
-  "execution": {
-    "PowerShell3": {
-      "target": "script.ps1"
-    }
-  }
 }

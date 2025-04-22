@@ -72,6 +72,29 @@ Write-Host "Downloading latest VSTS SDK..."
 Save-Module -Name VstsTaskSdk -Path .
 Write-Host "Copying required files to:"
 
+# Check if 'tfx' is available
+if (-not (Get-Command tfx -ErrorAction SilentlyContinue)) {
+    Write-Host "'tfx' not found. Installing via npm..."
+
+    # Check if npm is available
+    if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
+        throw "npm is required to install tfx-cli but was not found. Please install NodeJS first."
+    }
+
+    # Install tfx globally
+    npm install -g tfx-cli
+
+    # Verify installation
+    if (-not (Get-Command tfx -ErrorAction SilentlyContinue)) {
+        throw "Failed to install 'tfx'. Please check your environment or install manually using npm install -g tfx-cli."
+    }
+
+    Write-Host "'tfx' installed successfully."
+} else {
+    Write-Host "'tfx' is already installed."
+}
+
+
 for ($i = 0; $i -lt $SourceFolders.Length; $i++)
 {
   if ($SourceFolders[$i] -ne "")
