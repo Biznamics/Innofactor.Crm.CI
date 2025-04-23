@@ -58,6 +58,8 @@
 
         public void EndSection()
         {
+            if(stack.Count == 0) 
+                return; 
             int i = stack.Count - 1;
             try
             {
@@ -113,6 +115,10 @@
             catch (Exception ex) { }
             return mb;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ex"></param>
         private void LogException(Exception ex)
         {
             var padding = Indentchars();
