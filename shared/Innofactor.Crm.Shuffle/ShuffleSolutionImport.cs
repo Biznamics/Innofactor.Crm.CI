@@ -4,7 +4,7 @@
     using Innofactor.Xrm.Utils.Common.Extensions;
     using Innofactor.Xrm.Utils.Common.Interfaces;
     using Innofactor.Xrm.Utils.Common.Misc;
-    using Ionic.Zip;
+    using System.IO.Compression;
     using Microsoft.Crm.Sdk.Messages;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Messages;
@@ -281,17 +281,18 @@
         private Version ExtractVersionFromSolutionZip(string filename)
         {
             container.StartSection("ExtractVersionFromSolutionZip");
-            using (var zip = ZipFile.Read(filename))
+            var solutionFilePath = Path.Combine(definitionpath, "solution.xml");
+            using (var zip = ZipFile.OpenRead(filename))
             {
-                zip["solution.xml"].Extract(definitionpath, ExtractExistingFileAction.OverwriteSilently);
+                zip.GetEntry("solution.xml").ExtractToFile(solutionFilePath, overwrite: true);
             }
-            if (!System.IO.File.Exists(definitionpath + "\\solution.xml"))
+            if (!File.Exists(solutionFilePath))
             {
-                throw new Exception("Unable to unzip solution.xml from file: " + filename);
+                throw new FileNotFoundException($"Unable to unzip solution.xml from file: {filename}, invalid solution file.");
             }
             var xSolution = new XmlDocument();
-            xSolution.Load(definitionpath + "\\solution.xml");
-            System.IO.File.Delete(definitionpath + "\\solution.xml");
+            xSolution.Load(solutionFilePath);
+            File.Delete(solutionFilePath);
             var xRoot = XML.FindChild(xSolution, "ImportExportXml");
             if (xRoot == null)
             {
