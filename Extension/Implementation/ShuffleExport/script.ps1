@@ -6,7 +6,7 @@ $DataFile = Get-VstsInput -Name dataFile
 $SetVersion = Get-VstsInput -Name setVersion -AsBool
 $ConnectionString = Get-VstsInput -Name crmConnectionString -Require
 
-if (!$DataFile -or ($DataFile = $env:BUILD_SOURCESDIRECTORY)) 
+if ([string]::IsNullOrEmpty($DataFile) -or ($DataFile -eq $env:BUILD_SOURCESDIRECTORY) -or ($DataFile -eq $env:SYSTEM_ARTIFACTSDIRECTORY))
 {
 	Write-Verbose "Setting default data file"
 	$DataFile = [io.path]::ChangeExtension($DefinitionFile, ".data.xml")
@@ -66,5 +66,5 @@ if (!$exp)
 else 
 {
 	Write-Host "Writing export result to $DataFile"
-	[xml]$exp.Save($DataFile)
+	$exp.Save($DataFile)
 }

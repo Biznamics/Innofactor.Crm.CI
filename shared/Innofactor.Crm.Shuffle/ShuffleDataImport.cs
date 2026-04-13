@@ -60,11 +60,11 @@
                         if (cdEntity[matchdisplay] is EntityReference)
                         {   // Don't use PropertyAsString, that would perform GetRelated that we don't want due to performance
                             var entref = cdEntity.GetAttribute<EntityReference>(matchdisplay, null);
-                            if (!string.IsNullOrEmpty(entref.Name))
+                            if (entref != null && !string.IsNullOrEmpty(entref.Name))
                             {
                                 matchvalue = entref.Name;
                             }
-                            else
+                            else if (entref != null)
                             {
                                 matchvalue = entref.LogicalName + ":" + entref.Id.ToString();
                             }
