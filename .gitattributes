@@ -1,0 +1,41 @@
+# Auto detect text files and normalize line endings to LF
+* text=auto
+
+# Source code files - always CRLF on checkout (Windows project)
+*.cs text eol=crlf
+*.csproj text eol=crlf
+*.sln text eol=crlf
+*.xaml text eol=crlf
+*.xaml.cs text eol=crlf
+
+# Script files
+*.ps1 text eol=crlf
+*.ps2 text eol=crlf
+*.psd1 text eol=crlf
+*.psm1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Configuration files
+*.json text eol=crlf
+*.xml text eol=crlf
+*.config text eol=crlf
+*.yml text eol=crlf
+*.yaml text eol=crlf
+
+# Documentation
+*.md text eol=crlf
+*.txt text eol=crlf
+*.markdown text eol=crlf
+
+# Binary files
+*.dll binary
+*.exe binary
+*.pdb binary
+*.jpg binary
+*.png binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.nupkg binary
+*.snk binary
