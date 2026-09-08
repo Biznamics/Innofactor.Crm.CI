@@ -93,6 +93,40 @@ Describe 'Task definitions' {
     }
 }
 
+Describe 'Submodule provenance' {
+
+    # Cmdlets/Shuffle compiles the Shuffle core directly out of the submodule
+    # working tree via a shared .projitems import. If that tree is not exactly
+    # the commit master records, the built assemblies contain code nobody can
+    # reproduce from a clean clone - which is how you lose track of what you
+    # actually shipped.
+    It 'has the submodule checked out at the commit the repo records' {
+        Push-Location $Root
+        try {
+            $status = @(& git submodule status --cached 2>&1)
+        } finally {
+            Pop-Location
+        }
+
+        foreach ($line in $status) {
+            # a leading '+' means the working tree is at a different commit than recorded
+            $line | Should -Not -Match '^\+' -Because "run: git submodule update --init --recursive`n  $line"
+            # a leading '-' means it is not initialised at all
+            $line | Should -Not -Match '^-'   -Because "run: git submodule update --init --recursive`n  $line"
+        }
+    }
+
+    It 'has no uncommitted changes inside the submodule' {
+        Push-Location (Join-Path $Root 'modules/Xrm.Shuffle')
+        try {
+            $dirty = @(& git status --porcelain 2>&1)
+        } finally {
+            Pop-Location
+        }
+        $dirty | Should -BeNullOrEmpty -Because 'uncommitted submodule edits get compiled into the package but exist nowhere else'
+    }
+}
+
 Describe 'Marketplace overview page' {
 
     BeforeDiscovery {
