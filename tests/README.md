@@ -34,6 +34,7 @@ connection strings are set, and the packaging gate skips when there is no
 | `MinifyJS.Tests.ps1` | node + npm | `script.ps1` copies the lockfile and uses `npm ci`; a real `npm ci` + `gulp minify` run over a fixture strips `console`/`debugger`, preserves ES2020, and emits valid JS; `npm audit` is clean |
 | `Vsix.Tests.ps1` | a built `.vsix` | No DotNetZip/Ionic.Zip, ADAL pinned to `3.19.50615.2240` with its `.Platform` satellite, every task has its cmdlet and the VstsTaskSdk, MinifyJS ships its lockfile, task ids survive packaging |
 | `Integration.Tests.ps1` | a real org, **Windows PowerShell 5.1** | `Find-CrmUser` against online and on-prem |
+| `Test-Connection.ps1` | a real org, **Windows PowerShell 5.1** | Same check without a Pester dependency — use this for a quick manual verification |
 
 ## Expected failures against the old package
 
@@ -43,6 +44,26 @@ still the published **9.0.95**, the gate correctly fails two assertions —
 gulp ESM migration so it has `gulpfile.cjs` rather than `gulpfile.mjs`. Both
 clear once you rebuild and repack. That is the gate doing its job, not a
 broken test.
+
+## Verifying a live connection
+
+Pester 5+ often ends up installed only for pwsh 7, while these cmdlets must be exercised under
+**Windows PowerShell 5.1** — the host an Azure DevOps agent uses. `Test-Connection.ps1` avoids
+that mismatch by using no test framework at all:
+
+```powershell
+# in a Windows PowerShell 5.1 window
+$env:CRM_ONLINE_CONNSTR = 'AuthType=ClientSecret;Url=https://...;ClientId=...;ClientSecret=...'
+.	ests\Test-Connection.ps1
+
+$env:CRM_ONPREM_CONNSTR = 'AuthType=AD;Url=http://crmserver/org;Domain=...;Username=...;Password=...'
+.	ests\Test-Connection.ps1 -Target OnPrem
+```
+
+It reads the connection string from the environment so it never lands on a command line or in
+shell history, defaults to the *packaged* task payload rather than `bin/Release`, and reports
+which ADAL version actually loaded. It deliberately does not pass `-Verbose`, because the cmdlet
+logs the full connection string at that level.
 
 ## Before publishing
 
