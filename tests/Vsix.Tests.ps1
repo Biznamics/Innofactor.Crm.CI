@@ -84,8 +84,8 @@ Describe 'Packaged extension' -Skip:(-not $HaveVsix) {
         }
 
         It 'ships only the pinned ADAL file version' {
-            # Xrm.Tooling.Connector is the only client covering both online and
-            # on-prem, and PowerShell 5.1 agents will not load ADAL 5.x.
+            # Xrm.Tooling.Connector 4.0.0.0 is compiled against ADAL 3.19.8.16603
+            # exactly, and no binding redirect can apply in a PowerShell-hosted DLL.
             $versions = @($AdalDlls | ForEach-Object {
                 [System.Diagnostics.FileVersionInfo]::GetVersionInfo($_.FullName).FileVersion
             } | Sort-Object -Unique)

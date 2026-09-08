@@ -226,13 +226,20 @@ AuthType=AD;Url=http://crmserver/contoso;Domain=CONTOSO;Username=svcaccount;Pass
 AuthType=IFD;Url=https://contoso.crm.local/contoso;Domain=CONTOSO;Username=svcaccount;Password=<pw>
 ```
 
-> **Why the ADAL version is pinned.** These tasks connect through
-> `Microsoft.Xrm.Tooling.Connector`, the only client supporting both online *and* on-prem AD/IFD.
-> It binds ADAL, and the Windows PowerShell 5.1 host on a build agent will not load ADAL 5.x — so
-> every project pins `Microsoft.IdentityModel.Clients.ActiveDirectory` to **3.19.8** with
-> `allowedVersions="[3.19.8]"`. Do not "upgrade" it. Migrating to MSAL via
-> `Microsoft.PowerPlatform.Dataverse.Client` is not an option while on-prem is supported, because
-> that client never implemented AD/IFD.
+> **Why the ADAL version is pinned.** `Microsoft.Xrm.Tooling.Connector` 4.0.0.0 — from
+> `Microsoft.CrmSdk.XrmTooling.CoreAssembly` **9.1.1.65**, the newest published — is compiled
+> against `Microsoft.IdentityModel.Clients.ActiveDirectory` **3.19.8.16603** exactly. Strong-name
+> binding then demands that exact version, and overriding it requires a binding redirect in the
+> *host process* config (`powershell.exe.config` on the agent), which an extension cannot modify.
+> A library `.dll.config` is ignored — that is why no `.config` ships in the package. So the pin
+> is a requirement, not a workaround.
+>
+> This is **not** a PowerShell limitation: ADAL 5.x loads into PS 5.1 perfectly well on its own.
+> And since no newer XrmTooling binds a newer ADAL, the only way off ADAL 3.x is off
+> `CrmServiceClient` altogether — which
+> [Microsoft's transition guidance](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/sdk-client-transition)
+> advises against while on-prem AD/IFD support is required, since
+> `Microsoft.PowerPlatform.Dataverse.Client` never implemented it.
 
 ---
 
