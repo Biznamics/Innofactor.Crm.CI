@@ -1,4 +1,4 @@
-import gulp from 'gulp';
+﻿import gulp from 'gulp';
 import terser from 'gulp-terser';
 import strip from 'gulp-strip-debug';
 import rename from 'gulp-rename';
@@ -13,8 +13,8 @@ export async function minify() {
     .src('*.maxi.js')
     .pipe(strip())
     .pipe(
-      terser().on('error', function (uglify) {
-        const err = new pluginError('minifyJS', uglify.message, {
+      terser().on('error', function (error) {
+        const err = new pluginError('minifyJS', error.message, {
           showStack: true,
         });
         this.emit('error', err);

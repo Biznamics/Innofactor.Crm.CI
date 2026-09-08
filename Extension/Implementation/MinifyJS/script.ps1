@@ -4,6 +4,7 @@ $JsPath = Get-VstsInput -Name jsPath
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 $gulpFile = Join-Path $scriptPath "gulpfile.mjs"
 $packageFile = Join-Path $scriptPath "package.json"
+$packageLockFile = Join-Path $scriptPath "package-lock.json"
 
 Write-Verbose "Script Path    : $scriptPath"
 Write-Host "Gulp File      : $gulpFile"
@@ -14,12 +15,17 @@ Write-Verbose "Copying $gulpFile to $JsPath"
 Copy-Item $gulpFile $JsPath
 Write-Verbose "Copying $packageFile to $JsPath"
 Copy-Item $packageFile $JsPath
+Write-Verbose "Copying $packageLockFile to $JsPath"
+Copy-Item $packageLockFile $JsPath
 
 Set-Location $JsPath
 
 Write-Host "Installing Gulp"
-npm install
-if ($LASTEXITCODE -ne 0) { throw "npm install failed with exit code $LASTEXITCODE" }
+# npm ci installs exactly what package-lock.json pins and fails if the lock is
+# missing or out of sync - npm install would silently re-resolve the ^ ranges,
+# which is how unpinned (and vulnerable) transitive deps used to reach agents.
+npm ci
+if ($LASTEXITCODE -ne 0) { throw "npm ci failed with exit code $LASTEXITCODE" }
 
 Write-Verbose "Calling gulp minify"
 $gulpFile = Join-Path $JsPath "gulpfile.mjs"
