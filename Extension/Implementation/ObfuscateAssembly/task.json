@@ -1,9 +1,9 @@
 {
   "id": "10403308-4cac-4f89-ad9b-a09f88df3a75",
   "name": "ObfuscateAssembly",
-  "friendlyName": "Innofactor DevOps: Obfuscate Assembly",
+  "friendlyName": "Dynamics365CE DevOps: Obfuscate Assembly",
   "description": "Replaces assembly with its obfuscated version",
-  "author": "Innofactor Sweden",
+  "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "This task will replace provided assembly with its obfuscated copy",
   "category": "Build",
   "visibility": [

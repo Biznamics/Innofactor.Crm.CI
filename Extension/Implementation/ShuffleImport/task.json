@@ -1,9 +1,9 @@
 {
   "id": "a4334ae5-0d38-4dc9-b30d-881fd2988c56",
   "name": "ShuffleImport",
-  "friendlyName": "Innofactor DevOps: Shuffle Import",
-  "description": "Import data and solutions using Innofactor Shuffle",
-  "author": "Innofactor Sweden",
+  "friendlyName": "Dynamics365CE DevOps: Shuffle Import",
+  "description": "Import data and solutions using the Shuffle engine",
+  "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",
   "category": "Deploy",
   "visibility": [

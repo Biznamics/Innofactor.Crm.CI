@@ -1,9 +1,9 @@
 {
     "id": "4d6fe5ed-c8e8-4782-ac11-97e27b7a72c5",
     "name": "ApplyVersionToAssemblies",
-    "friendlyName": "Apply Build Version to assemblies",
+    "friendlyName": "Dynamics365CE DevOps: Apply Build Version to assemblies",
     "description": "This task will extract the four part version number from the generated build number or given file and update all AssemblyInfo.cs files in the solution with this version.",
-    "author": "Innofactor Sweden",
+    "author": "Imran Akram & Jonas Rapp",
     "helpMarkDown": "This task will extract the *four part version number* from the generated {build number} or {given file} and update all AssemblyInfo.cs files in the solution with this version.",
     "category": "Build",
     "visibility": [

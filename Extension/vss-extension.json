@@ -9,7 +9,7 @@
       "id": "Microsoft.VisualStudio.Services"
     }
   ],
-  "description": "Build and Release tasks to facilitate a complete DevOps approach to Microsoft Dynamics 365 projects using Innofactor Shuffle and related tools.",
+  "description": "Build and Release tasks to facilitate a complete DevOps approach to Microsoft Dynamics 365 projects using the Shuffle engine and related tools.",
   "categories": [
     "Azure Pipelines"
   ],
@@ -53,18 +53,18 @@
   },
   "links": {
     "learn": {
-      "uri": "http://jonasrapp.net/2017/04/devops-i/"
+      "uri": "https://jonasr.app/devops-i/"
     },
     "repository": {
-      "uri": "https://github.com/Biznamics/Innofactor.Crm.CI"
+      "uri": "https://github.com/imranakram/Innofactor.Crm.CI"
     },
     "issues": {
-        "uri": "https://github.com/Biznamics/Innofactor.Crm.CI/issues"
+        "uri": "https://github.com/imranakram/Innofactor.Crm.CI/issues"
     }
   },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/Biznamics/Innofactor.Crm.CI"
+        "uri": "https://github.com/imranakram/Innofactor.Crm.CI"
     },
   "branding": {
     "color": "rgb(0, 93, 164)",

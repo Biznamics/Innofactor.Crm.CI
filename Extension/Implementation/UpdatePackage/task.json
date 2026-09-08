@@ -1,9 +1,9 @@
 {
   "id": "9a9257e6-1371-44a1-95c4-b2304b5396fb",
   "name": "UpdatePackage",
-  "friendlyName": "Innofactor DevOps: Update Package",
+  "friendlyName": "Dynamics365CE DevOps: Update Package",
   "description": "Updates a package in target CRM organization.",
-  "author": "Innofactor Sweden",
+  "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",
   "category": "Build",
   "visibility": [

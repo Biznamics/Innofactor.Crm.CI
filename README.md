@@ -1,7 +1,5 @@
 # Innofactor.Crm.CI
 
-[![Join the chat at https://gitter.im/Biznamics/Innofactor.Crm.CI](https://badges.gitter.im/Innofactor/Innofactor.Crm.CI.svg)](https://gitter.im/Innofactor/Innofactor.Crm.CI?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 A collection of PowerShell cmdlets for Microsoft Dynamics 365 / Dataverse CI/CD automation. These cmdlets enable seamless integration with Azure DevOps pipelines for building, deploying, and managing CRM/Dataverse components.
 
 ## Features
@@ -23,7 +21,7 @@ A collection of PowerShell cmdlets for Microsoft Dynamics 365 / Dataverse CI/CD 
 ### From Source
 
 ```powershell
-git clone https://github.com/Biznamics/Innofactor.Crm.CI.git
+git clone https://github.com/imranakram/Innofactor.Crm.CI.git
 cd Innofactor.Crm.CI
 # Build the solution in Visual Studio or via MSBuild
 ```
@@ -31,7 +29,7 @@ cd Innofactor.Crm.CI
 ### Azure DevOps Extension
 
 Install the extension from the Visual Studio Marketplace:
-[Cinteros DevUtils CI Build Tasks](https://marketplace.visualstudio.com/items?itemName=InnofactorSE.cinteros-devutils-ci-build-tasks)
+[DevOps for Microsoft Dynamics 365](https://marketplace.visualstudio.com/items?itemName=InnofactorSE.cinteros-devutils-ci-build-tasks)
 
 ## Available Cmdlets
 

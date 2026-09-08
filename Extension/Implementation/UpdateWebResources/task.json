@@ -1,9 +1,9 @@
 {
   "id": "ebd685fe-1b2d-4b7f-aaad-002ecec338b7",
   "name": "UpdateWebResources",
-  "friendlyName": "Innofactor DevOps: Update Web Resources",
+  "friendlyName": "Dynamics365CE DevOps: Update Web Resources",
   "description": "Update web resources from local folder structure to target CRM organization.",
-  "author": "Innofactor Sweden",
+  "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",
   "category": "Build",
   "visibility": [

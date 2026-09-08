@@ -1,9 +1,9 @@
 {
   "id": "87589590-e070-48ad-b709-a7758db9db8b",
   "name": "UpdateAssembly",
-  "friendlyName": "Innofactor DevOps: Update Assembly",
+  "friendlyName": "Dynamics365CE DevOps: Update Assembly",
   "description": "Updates an assembly in target CRM organization.",
-  "author": "Innofactor Sweden",
+  "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",
   "category": "Build",
   "visibility": [
