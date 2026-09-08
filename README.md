@@ -566,6 +566,8 @@ task ids and versions never regressing, and every documentation image still reso
 [tests/README.md](tests/README.md). **A green run against a freshly built `.vsix` is the release
 gate.**
 
+For publishing steps and the rollback procedure, see [RELEASING.md](RELEASING.md).
+
 ### Project structure
 
 ```
