@@ -85,11 +85,15 @@ Rule 2 is what makes a naive rollback fail silently — see below.
 7. **Commit the version bumps immediately.** The manifest sitting at 9.0.91 while 9.0.95 was live
    is what made "which branch did I publish?" unanswerable for a year.
 
-8. **Refresh the test baseline** so the regression floor tracks reality:
+8. **Refresh the test baseline** so the regression floor tracks reality. Regenerate
+   `tests/fixtures/published-baseline.json` from the newly published vsix - its
+   `publishedVersion` and per-task ids/versions come straight out of the package. Until
+   you do, the *never lowers a task version* check is still anchored to the previous
+   release and would not catch a regression between the two.
 
-   ```powershell
-   # regenerate tests/fixtures/published-baseline.json from the newly published vsix
-   ```
+   Note the manifest and the baseline are legitimately **equal** between releases. The
+   gate only requires the manifest not to fall *below* the gallery; the Marketplace
+   itself rejects republishing an existing version, so nothing else is needed.
 
 ---
 
@@ -148,6 +152,9 @@ binaries, renumbered to land above 9.0.96. It is within one byte of the publishe
 
 `Extension/VSIX/` is gitignored, so this package lives only on the machine that built it. Keep a
 copy somewhere durable, or rebuild it from the recipe above.
+
+It claims **9.0.97**, so if a normal release takes that number first, renumber the rollback
+above whatever is then live - the same version-inversion rule applies.
 
 Running the gate against it fails exactly two assertions, both correct:
 

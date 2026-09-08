@@ -35,10 +35,17 @@ Describe 'Extension manifest identity' {
         $Manifest.categories | Should -Contain 'Azure Pipelines'
     }
 
-    It 'declares a version newer than what is already published' {
+    It 'has not fallen behind what is already published' {
+        # The failure this guards against is the manifest drifting BELOW the gallery:
+        # 9.0.91 sat in this file for a year while 9.0.95 was live, which made it
+        # impossible to tell what had actually been shipped.
+        #
+        # Equal is the normal state between releases. Being strictly greater is only
+        # required at publish time, and the Marketplace enforces that itself by
+        # rejecting a republish of an existing version.
         [version]$Manifest.version |
-            Should -BeGreaterThan ([version]$Baseline.publishedVersion) `
-            -Because "the gallery already holds $($Baseline.publishedVersion); tfx rejects a republish of the same or a lower version"
+            Should -BeGreaterOrEqual ([version]$Baseline.publishedVersion) `
+            -Because "the gallery holds $($Baseline.publishedVersion); a lower number here means the manifest has drifted - bump it and commit"
     }
 
     It 'points its repository links at the maintained repo' {
