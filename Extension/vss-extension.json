@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "cinteros-devutils-ci-build-tasks",
   "name": "DevOps for Microsoft Dynamics 365",
-  "version": "9.0.91",
+  "version": "9.0.95",
   "publisher": "InnofactorSE",
   "targets": [
     {
@@ -11,7 +11,7 @@
   ],
   "description": "Build and Release tasks to facilitate a complete DevOps approach to Microsoft Dynamics 365 projects using Innofactor Shuffle and related tools.",
   "categories": [
-    "Build and release"
+    "Azure Pipelines"
   ],
   "galleryFlags": [
     "Public"
@@ -56,16 +56,16 @@
       "uri": "http://jonasrapp.net/2017/04/devops-i/"
     },
     "repository": {
-      "uri": "https://github.com/Innofactor/Innofactor.Crm.CI"
+      "uri": "https://github.com/Biznamics/Innofactor.Crm.CI"
     },
     "issues": {
-      "uri": "https://github.com/Innofactor/Innofactor.Crm.CI/issues"
+        "uri": "https://github.com/Biznamics/Innofactor.Crm.CI/issues"
     }
   },
-  "repository": {
-    "type": "git",
-    "uri": "https://github.com/Innofactor/Innofactor.Crm.CI"
-  },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/Biznamics/Innofactor.Crm.CI"
+    },
   "branding": {
     "color": "rgb(0, 93, 164)",
     "theme": "dark"
