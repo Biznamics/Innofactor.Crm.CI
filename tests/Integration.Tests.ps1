@@ -7,10 +7,14 @@
         $env:CRM_ONLINE_CONNSTR = 'AuthType=ClientSecret;Url=...;ClientId=...;ClientSecret=...'
         $env:CRM_ONPREM_CONNSTR = 'AuthType=AD;Url=http://crm/org;Domain=...;Username=...;Password=...'
 
-    IMPORTANT: run these under Windows PowerShell 5.1, not PowerShell 7. The
-    cmdlets are net462 assemblies built against the PowerShell 5 reference
-    assemblies, which is also what the build agent hosts - testing anywhere
-    else does not exercise the ADAL load path that actually matters.
+    IMPORTANT: these must run under Windows PowerShell 5.1, not PowerShell 7 - the
+    cmdlets are net462 assemblies built against the PowerShell 5 reference assemblies,
+    which is also what the build agent hosts.
+
+    In practice Install-Module Pester puts Pester 5+ on the pwsh 7 module path only, so
+    Windows PowerShell 5.1 sees just the inbox Pester 3.4.0 and cannot run this file.
+    Unless you have deliberately installed Pester 5+ for 5.1 as well, use
+    tests\Test-Connection.ps1 instead - same assertions, no test framework.
 
     Both orgs must pass before publishing:
       - online validates the ADAL 3.19.8 pin (OAuth/ClientSecret path)

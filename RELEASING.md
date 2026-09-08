@@ -50,14 +50,23 @@ Rule 2 is what makes a naive rollback fail silently — see below.
    .\tests\Run-Tests.ps1 -VsixPath .\Extension\VSIX\<new>.vsix
    ```
 
-5. **Smoke-test against real orgs**, under Windows PowerShell 5.1, both online *and* on-prem.
-   Online is the only thing that actually exercises the ADAL 3.19.8 load path.
+5. **Smoke-test against real orgs**, in a **Windows PowerShell 5.1** window - the host an
+   agent uses. Use `Test-Connection.ps1`, not `Run-Tests.ps1`: `Install-Module Pester`
+   normally lands on the pwsh 7 module path, so 5.1 sees only the inbox Pester 3.4.0 and
+   cannot run the Pester suite. `Test-Connection.ps1` needs no test framework.
 
    ```powershell
-   $env:CRM_ONLINE_CONNSTR = '...'
-   $env:CRM_ONPREM_CONNSTR = '...'
-   powershell -File .\tests\Run-Tests.ps1
+   # online - this is the run that exercises the ADAL 3.19.8 load path
+   $env:CRM_ONLINE_CONNSTR = 'AuthType=ClientSecret;Url=https://...;ClientId=...;ClientSecret=...'
+   .\tests\Test-Connection.ps1
+
+   # on-prem - AD/IFD uses WS-Trust and never loads ADAL, which the script expects
+   $env:CRM_ONPREM_CONNSTR = 'AuthType=AD;Url=http://crmserver/org;Domain=...;Username=...;Password=...'
+   .\tests\Test-Connection.ps1 -Target OnPrem
    ```
+
+   Both must pass. Set the connection strings in that window rather than passing them as
+   arguments, so they stay out of shell history and process arguments.
 
 6. **Publish the exact artifact you just tested** — via the
    [publisher portal](https://marketplace.visualstudio.com/manage/publishers/innofactorse)

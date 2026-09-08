@@ -573,6 +573,9 @@ task ids and versions never regressing, and every documentation image still reso
 [tests/README.md](tests/README.md). **A green run against a freshly built `.vsix` is the release
 gate.**
 
+To verify a real connection (online or on-prem), run `tests/Test-Connection.ps1` from a
+**Windows PowerShell 5.1** window - see [tests/README.md](tests/README.md).
+
 For publishing steps and the rollback procedure, see [RELEASING.md](RELEASING.md).
 
 ### Project structure

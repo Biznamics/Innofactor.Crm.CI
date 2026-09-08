@@ -54,10 +54,10 @@ that mismatch by using no test framework at all:
 ```powershell
 # in a Windows PowerShell 5.1 window
 $env:CRM_ONLINE_CONNSTR = 'AuthType=ClientSecret;Url=https://...;ClientId=...;ClientSecret=...'
-.	ests\Test-Connection.ps1
+.\tests\Test-Connection.ps1
 
 $env:CRM_ONPREM_CONNSTR = 'AuthType=AD;Url=http://crmserver/org;Domain=...;Username=...;Password=...'
-.	ests\Test-Connection.ps1 -Target OnPrem
+.\tests\Test-Connection.ps1 -Target OnPrem
 ```
 
 It reads the connection string from the environment so it never lands on a command line or in
