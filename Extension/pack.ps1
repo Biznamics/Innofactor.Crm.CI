@@ -1,4 +1,4 @@
-Write-Host
+﻿Write-Host
 Write-Host
 Write-Host
 Write-Host "Assembling extension..."
@@ -41,6 +41,16 @@ foreach($Folder in $DestinationFolders)
   {
     Remove-Item -Path $Folder -Recurse -Force
   }
+}
+
+# A local 'npm install' in the MinifyJS folder leaves node_modules behind.
+# vss-extension.json ships the whole implementation folder, and tfx rejects
+# the package outright because some nested dependency paths contain '^'.
+$NodeModules = Join-Path $Temp 'MinifyJS' | Join-Path -ChildPath 'node_modules'
+if(Test-Path -Path $NodeModules)
+{
+  Write-Host "Removing stray node_modules from MinifyJS..."
+  Remove-Item -Path $NodeModules -Recurse -Force
 }
 
 $CmdletFolders = @(

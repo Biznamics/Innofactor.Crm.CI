@@ -1,7 +1,7 @@
 {
   "id": "ebd685fe-1b2d-4b7f-aaad-002ecec338b7",
   "name": "UpdateWebResources",
-  "friendlyName": "Dynamics365CE DevOps: Update Web Resources",
+  "friendlyName": "D365CE DevOps: Update Web Resources",
   "description": "Update web resources from local folder structure to target CRM organization.",
   "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",

@@ -1,7 +1,7 @@
 {
   "id": "87589590-e070-48ad-b709-a7758db9db8b",
   "name": "UpdateAssembly",
-  "friendlyName": "Dynamics365CE DevOps: Update Assembly",
+  "friendlyName": "D365CE DevOps: Update Assembly",
   "description": "Updates an assembly in target CRM organization.",
   "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",

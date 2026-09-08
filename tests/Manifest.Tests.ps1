@@ -77,6 +77,17 @@ Describe 'Task definitions' {
             Should -Not -Match 'Innofactor'
     }
 
+    It 'keeps friendlyName within the 40 char Marketplace limit - <_.Name>' -ForEach $Tasks {
+        # tfx warns today and will reject the package in future.
+        $_.Json.friendlyName.Length | Should -BeLessOrEqual 40
+    }
+
+    It 'has no node_modules staged next to it - <_.Folder>' -ForEach $Tasks {
+        # vss-extension.json ships the whole implementation folder, and tfx
+        # refuses paths containing '^' - which gulp-cli's nested deps have.
+        Join-Path (Split-Path $_.Path) 'node_modules' | Should -Not -Exist
+    }
+
     It 'uses the PowerShell3 handler - <_.Name>' -ForEach $Tasks {
         $_.Json.execution.PowerShell3.target | Should -BeExactly 'script.ps1'
     }

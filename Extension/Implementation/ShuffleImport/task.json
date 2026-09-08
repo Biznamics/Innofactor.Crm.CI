@@ -1,7 +1,7 @@
 {
   "id": "a4334ae5-0d38-4dc9-b30d-881fd2988c56",
   "name": "ShuffleImport",
-  "friendlyName": "Dynamics365CE DevOps: Shuffle Import",
+  "friendlyName": "D365CE DevOps: Shuffle Import",
   "description": "Import data and solutions using the Shuffle engine",
   "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",

@@ -1,7 +1,7 @@
 {
   "id": "c0da7e50-d3a6-417e-9c8b-11da841352fc",
   "name": "ShuffleExport",
-  "friendlyName": "Dynamics365CE DevOps: Shuffle Export",
+  "friendlyName": "D365CE DevOps: Shuffle Export",
   "description": "Export data and solutions using the Shuffle engine",
   "author": "Imran Akram & Jonas Rapp",
   "helpMarkDown": "",

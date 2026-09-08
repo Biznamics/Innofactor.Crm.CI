@@ -1,7 +1,7 @@
 ﻿{
   "id": "e93a5c81-cd3e-41e4-91fd-84fa01922590",
   "name": "MinifyJS",
-  "friendlyName": "Dynamics365CE DevOps: Minify JavaScripts",
+  "friendlyName": "D365CE DevOps: Minify JavaScripts",
   "description": "Finds all files matching pattern **\\*.maxi.js and minifies them to corresponding **\\*.js",
   "author": "Imran Akram & Jonas Rapp",
   "category": "Build",
