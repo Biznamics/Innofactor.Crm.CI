@@ -2,7 +2,7 @@
 
 $JsPath = Get-VstsInput -Name jsPath
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
-$gulpFile = Join-Path $scriptPath "gulpfile.cjs"
+$gulpFile = Join-Path $scriptPath "gulpfile.mjs"
 $packageFile = Join-Path $scriptPath "package.json"
 
 Write-Verbose "Script Path    : $scriptPath"
@@ -19,10 +19,12 @@ Set-Location $JsPath
 
 Write-Host "Installing Gulp"
 npm install
+if ($LASTEXITCODE -ne 0) { throw "npm install failed with exit code $LASTEXITCODE" }
 
-Write-Verbose "Calling gulp minify" 
-$gulpFile = Join-Path $JsPath "gulpfile.cjs"
-npx gulp --gulpfile $gulpFile minify 
+Write-Verbose "Calling gulp minify"
+$gulpFile = Join-Path $JsPath "gulpfile.mjs"
+npx gulp --gulpfile $gulpFile minify
+if ($LASTEXITCODE -ne 0) { throw "gulp minify failed with exit code $LASTEXITCODE" }
 
 
 $packageFile = Join-Path $JsPath "package.json"

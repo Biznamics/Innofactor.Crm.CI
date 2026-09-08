@@ -188,14 +188,36 @@ if ($files) {
 # Function to update version in .csproj file
 function Update-CsprojVersion($csprojPath, $newVersion) {
     $xml = [xml](Get-Content $csprojPath)
+    $updated = $false
 
+    # Try to update old-style .NET Framework projects (AssemblyVersion and FileVersion)
     $propertyGroup = $xml.Project.PropertyGroup | Where-Object { $_.AssemblyVersion -and $_.FileVersion }
 
     if ($propertyGroup) {
         $propertyGroup.AssemblyVersion = $newVersion.ToString()
         $propertyGroup.FileVersion = $newVersion.ToString()
+        $updated = $true
+        Write-Host "Updated AssemblyVersion and FileVersion in $csprojPath"
+    }
+
+    # Try to update SDK-style .NET Core/.NET 5+ projects (VersionPrefix or Version)
+    $sdkPropertyGroup = $xml.Project.PropertyGroup | Where-Object { $_.VersionPrefix -or $_.Version }
+
+    if ($sdkPropertyGroup) {
+        if ($sdkPropertyGroup.VersionPrefix) {
+            $sdkPropertyGroup.VersionPrefix = $newVersion.ToString()
+            $updated = $true
+            Write-Host "Updated VersionPrefix in $csprojPath"
+        }
+        if ($sdkPropertyGroup.Version) {
+            $sdkPropertyGroup.Version = $newVersion.ToString()
+            $updated = $true
+            Write-Host "Updated Version in $csprojPath"
+        }
+    }
+
+    if ($updated) {
         $xml.Save($csprojPath)
-        Write-Host "Updated version in $csprojPath"
     } else {
         Write-Warning "No version information found in $csprojPath"
     }

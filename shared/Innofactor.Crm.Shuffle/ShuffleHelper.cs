@@ -148,13 +148,16 @@
             try
             {
                 var deserializer = new XmlSerializer(typeof(ShuffleDefinition));
-                TextReader textReader = new StreamReader(definitionfile);
-                var content = textReader.ReadToEnd();
+                string content;
+                using (var fileReader = new StreamReader(definitionfile))
+                {
+                    content = fileReader.ReadToEnd();
+                }
                 content = VerifyShuffleVars(content, clearVariables);
-                textReader = new StringReader(content);
-                var result = (ShuffleDefinition)deserializer.Deserialize(textReader);
-                textReader.Close();
-                return result;
+                using (var stringReader = new StringReader(content))
+                {
+                    return (ShuffleDefinition)deserializer.Deserialize(stringReader);
+                }
             }
             catch (InvalidOperationException)
             {
